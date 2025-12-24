@@ -1,14 +1,13 @@
-// api.js
+
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/auth"; // Adjust if needed for production
+const API_URL = "http://localhost:5000/api/auth"; 
 
-// Create a single axios instance
 const api = axios.create({
   baseURL: API_URL,
 });
 
-// Add request interceptor to automatically attach token
+
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {
@@ -17,7 +16,7 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Add response interceptor for 401 handling (auto logout)
+
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -29,7 +28,7 @@ api.interceptors.response.use(
   }
 );
 
-// Export all API functions using the shared instance
+
 export const register = async (data) => {
   const response = await api.post("/register", data);
   return response.data;
@@ -60,3 +59,4 @@ export const deleteAccount = async () => {
 };
 
 export default api;
+
